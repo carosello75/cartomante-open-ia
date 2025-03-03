@@ -5,7 +5,9 @@ import openai
 app = Flask(__name__)
 
 # Imposta la tua chiave API OpenAI (sostituisci con la tua reale!)
-openai.api_key = "INSERISCI-LA-TUA-API-KEY"
+import os
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 @app.route('/ask', methods=['POST'])
 def ask_cartomante():
