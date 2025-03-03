@@ -1,10 +1,10 @@
+import os
 from flask import Flask, request, jsonify
 import openai
-import os
 
 app = Flask(__name__)
 
-# Legge la chiave da variabile d'ambiente
+# Chiave API da environment
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/ask', methods=['POST'])
@@ -22,13 +22,9 @@ def ask_cartomante():
             {"role": "user", "content": user_question}
         ]
     )
-
     ai_answer = response['choices'][0]['message']['content']
-
     return jsonify({"answer": ai_answer})
 
-# Usa la porta corretta di Render
-port = int(os.environ.get("PORT", 10000))
-
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
